@@ -1,0 +1,1 @@
+g++ -o ./build/run.exe ./src/*.cpp -I ./include
