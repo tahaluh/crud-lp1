@@ -7,11 +7,11 @@
 
 class Reserva {
   public:
-    Reserva();
+    Reserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento);
 
   private:
-    std::string idPassageiro;
-    std::string idVoo;
+    int idPassageiro;
+    int idVoo;
 
     int fileiraAssento;
     int colunaAssento;

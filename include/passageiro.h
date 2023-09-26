@@ -11,12 +11,17 @@ class Passageiro {
   public:
     Passageiro(std::string nome, std::string numPassagem, int idade, bool premium);
 
+    void AdicionaReserva(Reserva *reserva);
+
+    int getId();
+
   private:
+    int id;
     std::string nome;
     int idade;
     bool premium;
 
-    std::vector<Reserva> reservas;
+    std::vector<Reserva *> reservas;
 };
 
 #endif // PASSAGEIRO_H

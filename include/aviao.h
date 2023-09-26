@@ -11,6 +11,8 @@ class Aviao {
     Aviao(int nFileiras, int nColunas);
 
   private:
+    int id;
+
     std::string origem;
     std::string destino;
 
@@ -24,7 +26,7 @@ class Aviao {
 
     int id;
 
-    std::vector<std::vector<Assento>> matrixAssentos;
+    std::vector<std::vector<Assento *>> matrixAssentos;
 };
 
 #endif // AVIAO_H

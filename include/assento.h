@@ -1,23 +1,24 @@
 #ifndef ASSENTO_H
 #define ASSENTO_H
 
-#include "passageiro.h"
+#include "reserva.h"
 #include <string>
 
 class Assento {
   public:
     Assento(int fileira, int coluna);
 
-    void definirPassageiro(Passageiro *passageiro);
+    virtual void reservar(Passageiro *passageiro) = 0;
 
-  private:
+  protected:
+    int idVoo;
+   
     int fileira;
     int coluna;
 
     bool ocupado;
-    bool premium;
 
-    Passageiro *passageiro;
+    Reserva *reserva;
 };
 
 #endif // ASSENTO_H
