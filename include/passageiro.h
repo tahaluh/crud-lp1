@@ -11,9 +11,16 @@ class Passageiro {
   public:
     Passageiro(std::string nome, std::string numPassagem, int idade, bool premium);
 
-    void AdicionaReserva(Reserva *reserva);
+    void adicionaReserva(Reserva *reserva);
+    
+    int removeReserva(int idVoo, int fileiraAssento, int colunaAssento);
 
+    std::string getDados();
     int getId();
+
+    bool isPremium();
+
+    int getNumReservas();
 
   private:
     int id;

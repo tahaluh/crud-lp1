@@ -7,9 +7,9 @@
 
 class AssentoComum : public Assento {
   public:
-    AssentoComum(int fileira, int coluna);
+    AssentoComum(int fileira, int coluna, int idVoo);
     
-    void reservar(Passageiro *passageiro);
+    void Reservar(Passageiro *passageiro);
 };
 
 #endif // ASSENTO_COMUM_H

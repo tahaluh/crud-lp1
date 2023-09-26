@@ -7,7 +7,8 @@
 
 class AssentoPremium : public Assento {
   public:
-    AssentoPremium(int fileira, int coluna);
+    AssentoPremium(int fileira, int coluna, int idVoo);
+    void Reservar(Passageiro *passageiro);
 };
 
 #endif // ASSENTO_PREMIUM_H

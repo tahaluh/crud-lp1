@@ -10,6 +10,17 @@ class Aviao {
   public:
     Aviao(int nFileiras, int nColunas);
 
+    std::string getDados();
+
+    int getId();
+
+    int getFileiras();
+    int getColunas();
+
+    int getNumAssentos();
+
+    Assento *getAseento(int fileira, int coluna);
+
   private:
     int id;
 
@@ -26,7 +37,7 @@ class Aviao {
 
     int id;
 
-    std::vector<std::vector<Assento *>> matrixAssentos;
+    std::vector<std::vector<Assento>> matrixAssentos;
 };
 
 #endif // AVIAO_H

@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <crud.h>
+
 using namespace std;
 
 void exibeMenuVoo() {
@@ -12,7 +14,7 @@ void exibeMenuVoo() {
     cout << "5 - Voltar" << endl;
     cout << "------------------------" << endl;
 };
-void menuVoo() {
+void menuVoo(Crud *crud) {
     while (true) {
         exibeMenuVoo();
 
@@ -41,7 +43,7 @@ void exibeMenuPassagem() {
     cout << "5 - Voltar" << endl;
     cout << "------------------------" << endl;
 };
-void menuPassagem() {
+void menuPassagem(Crud *crud) {
     while (true) {
         exibeMenuPassagem();
 
@@ -68,7 +70,7 @@ void exibeMenuGeral() {
     cout << "3 - Sair" << endl;
     cout << "------------------------" << endl;
 };
-void menuGeral() {
+void menuGeral(Crud *crud) {
     while (true) {
         exibeMenuGeral();
         int opcao;
@@ -82,13 +84,13 @@ void menuGeral() {
             cin >> senha;
 
             if (senha == senhaMestre) {
-                exibeMenuVoo();
+                menuVoo(crud);
             } else {
                 cout << "Senha Invalida" << endl;
                 continue;
             }
         } else if (opcao == 2) {
-            menuPassagem();
+            menuPassagem(crud);
         } else if (opcao == 3) {
             break;
         } else {
@@ -121,19 +123,22 @@ void carregaArquivos() {
         numLinha++;
     }
 }
-void salvaArquivos() {
-    cout << "Salvando Aquivos..." << endl;
+void iniciaPrograma(Crud *crud) {
+    cout << "Iniciando Programa..." << endl;
+    crud->carregaArquivos();
 }
-void encerraPrograma() {
-    salvaArquivos();
+void encerraPrograma(Crud *crud) {
+    crud->salvaArquivos();
     cout << "Saindo..." << endl;
 }
 int main() {
-    cout << "Iniciando Programa..." << endl;
+    Crud *crud = new Crud();
 
-    menuGeral();
+    iniciaPrograma(crud);
 
-    encerraPrograma();
+    menuGeral(crud);
+
+    encerraPrograma(crud);
 
     return 0;
 }

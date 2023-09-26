@@ -6,13 +6,13 @@
 
 class Assento {
   public:
-    Assento(int fileira, int coluna);
+    Assento(int fileira, int coluna, int idVoo);
 
-    virtual void reservar(Passageiro *passageiro) = 0;
+    virtual void Reservar(Passageiro *passageiro) = 0;
 
   protected:
     int idVoo;
-   
+
     int fileira;
     int coluna;
 

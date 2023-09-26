@@ -1,10 +1,10 @@
 #include "assentoComum.h"
 
-AssentoComum::AssentoComum(int fileira, int coluna) : Assento(fileira, coluna) {}
+AssentoComum::AssentoComum(int fileira, int coluna, int idVoo) : Assento(fileira, coluna, idVoo) {}
 
-void AssentoComum::reservar(Passageiro *passageiro) {
+void AssentoComum::Reservar(Passageiro *passageiro) {
     this->ocupado = true;
     this->reserva = new Reserva(passageiro->getId(), this->idVoo, this->fileira, this->coluna);
 
-    passageiro->AdicionaReserva(this->reserva);
+    passageiro->adicionaReserva(this->reserva);
 }
