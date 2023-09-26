@@ -1,8 +1,6 @@
 #ifndef PASSAGEIRO_H
 #define PASSAGEIRO_H
 
-#include "assento.h"
-#include "passageiro.h"
 #include "reserva.h"
 #include <string>
 #include <vector>
@@ -12,7 +10,7 @@ class Passageiro {
     Passageiro(std::string nome, std::string numPassagem, int idade, bool premium);
 
     void adicionaReserva(Reserva *reserva);
-    
+
     int removeReserva(int idVoo, int fileiraAssento, int colunaAssento);
 
     std::string getDados();
@@ -25,6 +23,7 @@ class Passageiro {
   private:
     int id;
     std::string nome;
+    std::string numPassagem;
     int idade;
     bool premium;
 

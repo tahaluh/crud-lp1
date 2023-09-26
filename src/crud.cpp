@@ -11,8 +11,29 @@ void Crud::salvaArquivos() {
 void Crud::carregaArquivos() {
 }
 
-Aviao *Crud::criarVoo(int nFileiras, int nColunas) {
-    Aviao *aviao = new Aviao(nFileiras, nColunas);
+int Crud::getNewAvioesId() {
+    int newId = 0, i;
+    bool existe = false;
+
+    while (existe) {
+        newId++;
+        existe = false;
+
+        for (int i = 0; i < avioes.size(); i++) {
+            if (avioes[i]->getId() == newId) {
+                existe = true;
+                break;
+            }
+        }
+    }
+
+    return newId;
+}
+
+Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario) {
+    int newId = this->getNewAvioesId();
+
+    Aviao *aviao = new Aviao(origem, destino, tempoVoo, data, horario, nFileiras, nColunas, avioes.size());
     avioes.push_back(aviao);
     return aviao;
 }

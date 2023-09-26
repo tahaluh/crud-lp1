@@ -1,6 +1,7 @@
 #ifndef ASSENTO_H
 #define ASSENTO_H
 
+#include "passageiro.h"
 #include "reserva.h"
 #include <string>
 
@@ -8,7 +9,11 @@ class Assento {
   public:
     Assento(int fileira, int coluna, int idVoo);
 
-    virtual void Reservar(Passageiro *passageiro) = 0;
+    void setReserva(Reserva *reserva);
+
+    bool isOcupado();
+
+    virtual bool podeReservar(Passageiro *passageiro) = 0;
 
   protected:
     int idVoo;
@@ -18,7 +23,7 @@ class Assento {
 
     bool ocupado;
 
-    Reserva *reserva;
+    int reservaId;
 };
 
 #endif // ASSENTO_H

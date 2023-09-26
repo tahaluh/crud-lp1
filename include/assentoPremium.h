@@ -2,13 +2,13 @@
 #define ASSENTO_PREMIUM_H
 
 #include "assento.h"
-#include "passageiro.h"
 #include <string>
 
 class AssentoPremium : public Assento {
   public:
     AssentoPremium(int fileira, int coluna, int idVoo);
-    void Reservar(Passageiro *passageiro);
+
+    bool podeReservar(Passageiro *passageiro);
 };
 
 #endif // ASSENTO_PREMIUM_H

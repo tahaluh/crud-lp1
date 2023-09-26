@@ -4,13 +4,13 @@
 
 AssentoPremium::AssentoPremium(int fileira, int coluna, int idVoo) : Assento(fileira, coluna, idVoo) {}
 
-void AssentoPremium::Reservar(Passageiro *passageiro) {
-    if (passageiro->isPremium()) {
-        this->ocupado = true;
-        this->reserva = new Reserva(passageiro->getId(), this->idVoo, this->fileira, this->coluna);
-
-        passageiro->AdicionaReserva(this->reserva);
-    } else {
-        std::cout << "O Passageiro não é Premium" << std::endl;
-    }
+bool AssentoPremium::podeReservar(Passageiro *passageiro) {
+    if (!this->ocupado) {
+        if (passageiro->isPremium()) {
+            return true;
+        } else {
+            std::cout << "Apenas passageiros premium podem reservar este assento." << std::endl;
+            return false;
+        }
+    };
 }
