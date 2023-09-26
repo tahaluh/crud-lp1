@@ -6,7 +6,7 @@
 using namespace std;
 
 void exibeMenuVoo() {
-    cout << "------------------------" << endl;
+    cout << endl << "------------------------" << endl;
     cout << "1 - Cadastrar Voo" << endl;
     cout << "2 - Listar Voos" << endl;
     cout << "3 - Alterar Voo" << endl;
@@ -35,7 +35,7 @@ void menuVoo(Crud *crud) {
     }
 }
 void exibeMenuPassagem() {
-    cout << "------------------------" << endl;
+    cout << endl << "------------------------" << endl;
     cout << "1 - Comprar Passagem" << endl;
     cout << "2 - Listar Assentos Disponiveis" << endl;
     cout << "3 - Alterar Assento" << endl;
@@ -64,7 +64,7 @@ void menuPassagem(Crud *crud) {
     }
 }
 void exibeMenuGeral() {
-    cout << "------------------------" << endl;
+    cout << endl << "------------------------" << endl;
     cout << "1 - Voos" << endl;
     cout << "2 - Passagem" << endl;
     cout << "3 - Sair" << endl;
