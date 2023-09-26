@@ -38,8 +38,8 @@ Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::stri
     return aviao;
 }
 
-Passageiro *Crud::criarPassageiro(std::string nome, std::string numPassagem, int idade, bool premium) {
-    Passageiro *passageiro = new Passageiro(nome, numPassagem, idade, premium);
+Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium) {
+    Passageiro *passageiro = new Passageiro(nome, idade, premium);
     passageiros.push_back(passageiro);
     return passageiro;
 }

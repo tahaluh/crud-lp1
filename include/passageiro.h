@@ -7,7 +7,7 @@
 
 class Passageiro {
   public:
-    Passageiro(std::string nome, std::string numPassagem, int idade, bool premium);
+    Passageiro(std::string nome, int idade, bool premium);
 
     void adicionaReserva(Reserva *reserva);
 
@@ -23,7 +23,6 @@ class Passageiro {
   private:
     int id;
     std::string nome;
-    std::string numPassagem;
     int idade;
     bool premium;
 
