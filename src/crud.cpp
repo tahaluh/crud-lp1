@@ -1,5 +1,6 @@
 #include "crud.h"
 
+#include <cstring>
 #include <fstream>
 #include <iostream>
 
@@ -15,23 +16,22 @@ void Crud::salvaArquivos() {
     // aviao
 
     size = this->avioes.size();
-
-    fp.open("../db/avioes.txt");
+    fp.open("./db/avioes.txt", std::ios::out | std::ios::trunc);
 
     if (!fp.is_open()) {
-        std::cerr << "Erro ao abrir o arquivo";
+        std::cerr << "Erro ao salvar o arquivo avioes: " << std::strerror(errno) << std::endl;
         return;
     }
 
     for (i = 0; i < size; i++) {
-        std::cout << this->avioes[i]->getId() << std::endl;
-        std::cout << this->avioes[i]->getFileiras() << std::endl;
-        std::cout << this->avioes[i]->getColunas() << std::endl;
-        std::cout << this->avioes[i]->getOrigem() << std::endl;
-        std::cout << this->avioes[i]->getDestino() << std::endl;
-        std::cout << this->avioes[i]->getTempoVoo() << std::endl;
-        std::cout << this->avioes[i]->getData() << std::endl;
-        std::cout << this->avioes[i]->getHorario() << std::endl;
+        fp << this->avioes[i]->getId() << std::endl;
+        fp << this->avioes[i]->getFileiras() << std::endl;
+        fp << this->avioes[i]->getColunas() << std::endl;
+        fp << this->avioes[i]->getOrigem() << std::endl;
+        fp << this->avioes[i]->getDestino() << std::endl;
+        fp << this->avioes[i]->getTempoVoo() << std::endl;
+        fp << this->avioes[i]->getData() << std::endl;
+        fp << this->avioes[i]->getHorario() << std::endl;
     }
 
     fp.close();
@@ -39,19 +39,18 @@ void Crud::salvaArquivos() {
     // passageiro
 
     size = this->passageiros.size();
-
-    fp.open("../db/passageiros.txt");
+    fp.open("./db/passageiros.txt", std::ios::out | std::ios::trunc);
 
     if (!fp.is_open()) {
-        std::cerr << "Erro ao abrir o arquivo";
+        std::cerr << "Erro ao salvar o arquivo passageiros";
         return;
     }
 
     for (i = 0; i < size; i++) {
-        std::cout << this->passageiros[i]->getId() << std::endl;
-        std::cout << this->passageiros[i]->getNome() << std::endl;
-        std::cout << this->passageiros[i]->getIdade() << std::endl;
-        std::cout << this->passageiros[i]->isPremium() << std::endl;
+        fp << this->passageiros[i]->getId() << std::endl;
+        fp << this->passageiros[i]->getNome() << std::endl;
+        fp << this->passageiros[i]->getIdade() << std::endl;
+        fp << this->passageiros[i]->isPremium() << std::endl;
     }
 
     fp.close();
@@ -59,32 +58,33 @@ void Crud::salvaArquivos() {
     // reserva
 
     size = this->reservas.size();
-
-    fp.open("../db/reservas.txt");
+    fp.open("./db/reservas.txt", std::ios::out | std::ios::trunc);
 
     if (!fp.is_open()) {
-        std::cerr << "Erro ao abrir o arquivo";
+        std::cerr << "Erro ao salvar o arquivo reservas";
         return;
     }
 
     for (i = 0; i < size; i++) {
-        std::cout << this->reservas[i]->getId() << std::endl;
-        std::cout << this->reservas[i]->getIdPassageiro() << std::endl;
-        std::cout << this->reservas[i]->getIdVoo() << std::endl;
-        std::cout << this->reservas[i]->getFileira() << std::endl;
-        std::cout << this->reservas[i]->getColuna() << std::endl;
+        fp << this->reservas[i]->getId() << std::endl;
+        fp << this->reservas[i]->getIdPassageiro() << std::endl;
+        fp << this->reservas[i]->getIdVoo() << std::endl;
+        fp << this->reservas[i]->getFileira() << std::endl;
+        fp << this->reservas[i]->getColuna() << std::endl;
     }
 
     fp.close();
+
+    std::cout << "Arquivos salvos" << std::endl;
 }
 
 void Crud::carregaArquivos() {
     std::fstream fp;
 
-    fp.open("../db/aviao.txt");
+    fp.open("./db/aviao.txt");
 
     if (!fp.is_open()) {
-        std::cerr << "Erro ao abrir o arquivo";
+        std::cerr << "Erro ao carregar o arquivo avioes";
         return;
     }
 
