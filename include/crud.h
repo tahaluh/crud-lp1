@@ -29,9 +29,9 @@ class Crud {
     void lerDeletarPassageiro();
     void lerCancelarReserva();
 
-    Aviao *criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario);
-    Passageiro *criarPassageiro(std::string nome, int idade, bool premium);
-    Reserva *criarReserva(int passageiroId, int aviaoId, int fileira, int coluna);
+    Aviao *criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario, int id);
+    Passageiro *criarPassageiro(std::string nome, int idade, bool premium, int id);
+    Reserva *criarReserva(int passageiroId, int aviaoId, int fileira, int coluna, int id);
 
     void listarVoos();
     void listarReservas();

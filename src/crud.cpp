@@ -79,22 +79,82 @@ void Crud::salvaArquivos() {
 }
 
 void Crud::carregaArquivos() {
-    std::fstream fp;
+    std::ifstream fp;
 
-    fp.open("./db/aviao.txt");
+    // aviao
+    int id, nFileiras, nColunas;
+    float tempoVoo;
+    std::string origem, destino, data, horario;
+
+    fp.open("./db/avioes.txt");
 
     if (!fp.is_open()) {
         std::cerr << "Erro ao carregar o arquivo avioes";
         return;
     }
 
-    while (fp.eof()) {
+    std::streambuf *originalCin = std::cin.rdbuf(fp.rdbuf()); // alguem por favor me ajuda
+
+    while (std::cin >> id >> nFileiras >> nColunas >> origem >> destino >> tempoVoo >> data >> horario) {
+        this->criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario, id);
+
         if (fp.eof()) {
             break;
         }
-
-        this->lerDadosCriarVoo(false);
     }
+
+    fp.close();
+
+    // passageiro
+
+    std::string nome;
+    int idade;
+    bool premium;
+
+    fp.open("./db/passageiros.txt");
+
+    if (!fp.is_open()) {
+        std::cerr << "Erro ao carregar o arquivo avioes";
+        return;
+    }
+
+    std::cin.rdbuf(fp.rdbuf()); // alguem por favor me ajuda
+
+    while (std::cin >> id >> nome >> idade >> premium) {
+
+        this->criarPassageiro(nome, idade, premium, id);
+
+        if (fp.eof()) {
+            break;
+        }
+    }
+
+    fp.close();
+
+    // reserva
+
+    int passageiroId, aviaoId, fileira, coluna;
+
+    fp.open("./db/reservas.txt");
+
+    if (!fp.is_open()) {
+        std::cerr << "Erro ao carregar o arquivo avioes";
+        return;
+    }
+
+    std::cin.rdbuf(fp.rdbuf()); // alguem por favor me ajuda
+
+    while (std::cin >> id >> passageiroId >> aviaoId >> fileira >> coluna) {
+
+        this->criarReserva(passageiroId, aviaoId, fileira, coluna, id);
+
+        if (fp.eof()) {
+            break;
+        }
+    }
+
+    // Restaure a entrada padrão original
+    std::cin.rdbuf(originalCin);
 
     fp.close();
 }
@@ -117,9 +177,13 @@ void Crud::lerListarAssentosDisponiveis() {
     this->getAviao(aviaoId)->listarAssentosDisponiveis();
 }
 void Crud::lerDadosCriarVoo(bool usuario) {
-    int nFileiras, nColunas;
+    int nFileiras, nColunas, id = 0;
     std::string origem, destino, data, horario;
     float tempoVoo;
+
+    if (!usuario) {
+        std::cin >> id;
+    }
 
     if (usuario) {
         std::cout << "Informe os dados do Voo: " << std::endl;
@@ -157,12 +221,50 @@ void Crud::lerDadosCriarVoo(bool usuario) {
     }
     std::cin >> horario;
 
-    criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario);
+    criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario, id);
+}
+void Crud::lerDadosCriarReserva(bool usuario) {
+    int id = 0;
+    int idPassageiro;
+    int idVoo;
+    int fileiraAssento;
+    int colunaAssento;
+
+    if (!usuario) {
+        std::cin >> id;
+    }
+
+    if (usuario) {
+        std::cout << "Informe os dados da Reserva: " << std::endl;
+        std::cout << "ID Passageiro: ";
+    }
+    std::cin >> idPassageiro;
+
+    if (usuario) {
+        std::cout << "ID Voo: ";
+    }
+    std::cin >> idVoo;
+
+    if (usuario) {
+        std::cout << "Fileira: ";
+    }
+    std::cin >> fileiraAssento;
+
+    if (usuario) {
+        std::cout << "Coluna: ";
+    }
+    std::cin >> colunaAssento;
+
+    criarReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento, id);
 }
 void Crud::lerDadosCriarPassageiro(bool usuario) {
     std::string nome;
-    int idade;
+    int idade, id = 0;
     int premium;
+
+    if (!usuario) {
+        std::cin >> id;
+    }
 
     if (usuario) {
         std::cout << "Informe os dados do Passageiro: " << std::endl;
@@ -180,7 +282,7 @@ void Crud::lerDadosCriarPassageiro(bool usuario) {
     }
     std::cin >> premium;
 
-    criarPassageiro(nome, idade, premium == 1);
+    criarPassageiro(nome, idade, premium == 1, id);
 }
 void Crud::lerDeletarPassageiro() {
     int idPassageiro;
@@ -212,51 +314,24 @@ void Crud::lerCancelarReserva() {
 
     this->cancelaReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
 }
-void Crud::lerDadosCriarReserva(bool usuario) {
-    int idPassageiro;
-    int idVoo;
-    int fileiraAssento;
-    int colunaAssento;
-
-    if (usuario) {
-        std::cout << "Informe os dados da Reserva: " << std::endl;
-        std::cout << "ID Passageiro: ";
-    }
-    std::cin >> idPassageiro;
-
-    if (usuario) {
-        std::cout << "ID Voo: ";
-    }
-    std::cin >> idVoo;
-
-    if (usuario) {
-        std::cout << "Fileira: ";
-    }
-    std::cin >> fileiraAssento;
-
-    if (usuario) {
-        std::cout << "Coluna: ";
-    }
-    std::cin >> colunaAssento;
-
-    criarReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
-}
 
 // Criar
-Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium) {
-    Passageiro *passageiro = new Passageiro(nome, idade, premium, this->getNewPassageirosId());
+Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium, int id) {
+    int newId = id ? id : this->getNewPassageirosId();
+    Passageiro *passageiro = new Passageiro(nome, idade, premium, newId);
     passageiros.push_back(passageiro);
     return passageiro;
 }
-Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario) {
-    int newId = this->getNewAvioesId();
+Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario, int id) {
+    int newId = id ? id : this->getNewAvioesId();
 
     Aviao *aviao = new Aviao(origem, destino, tempoVoo, data, horario, nFileiras, nColunas, this->getNewAvioesId());
 
     avioes.push_back(aviao);
     return aviao;
 }
-Reserva *Crud::criarReserva(int passageiroId, int aviaoId, int fileira, int coluna) {
+Reserva *Crud::criarReserva(int passageiroId, int aviaoId, int fileira, int coluna, int id) {
+    int newId = id ? id : this->getNewReservasId();
     int aviaoIndex, passageiroIndex;
     bool existe = false;
 
@@ -300,7 +375,7 @@ Reserva *Crud::criarReserva(int passageiroId, int aviaoId, int fileira, int colu
         return nullptr;
     };
 
-    Reserva *reserva = new Reserva(passageiroId, aviaoId, fileira, coluna, this->getNewReservasId());
+    Reserva *reserva = new Reserva(passageiroId, aviaoId, fileira, coluna, newId);
     reservas.push_back(reserva);
 
     assento->setReserva(reserva);
