@@ -21,6 +21,9 @@ int Passageiro::removeReserva(int idVoo, int fileiraAssento, int colunaAssento) 
     return 0;
 }
 
+int Passageiro::getNumReservas() {
+    return reservas.size();
+}
 std::string Passageiro::getDados() {
     return "Id: " + std::to_string(this->getId()) + "Nome: " + this->nome + "Idade: " + std::to_string(this->idade) + "Premium: " + std::to_string(this->premium);
 }

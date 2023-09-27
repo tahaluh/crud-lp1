@@ -18,7 +18,7 @@ Aviao::Aviao(std::string origem, std::string destino, float tempoVoo, std::strin
 }
 
 std::string Aviao::getDados() {
-    return "Id: " + std::to_string(this->id) + "Origem: " + this->origem + "Destino: " + this->destino + "Tempo de Voo: " + std::to_string(this->tempoVoo) + "horas Data: " + this->data + "Horario: " + this->horario;
+    return "Id: " + std::to_string(this->id) + " - Origem: " + this->origem + " - Destino: " + this->destino + " - Tempo de Voo: " + std::to_string(this->tempoVoo) + "horas - Data: " + this->data + " - Horario: " + this->horario;
 }
 
 int Aviao::getId() {

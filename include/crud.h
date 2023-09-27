@@ -15,9 +15,13 @@ class Crud {
     void carregaArquivos();
     void salvaArquivos();
 
-    Aviao *lerDadosCriarVoo();
-    Passageiro *lerDadosCriarPassageiro();
-    Reserva *lerDadosCriarReserva();
+    void lerDadosCriarVoo();
+    void lerDadosCriarPassageiro();
+    void lerDadosCriarReserva();
+
+    void lerCancelarVoo();
+    void lerDeletarPassageiro();
+    void lerCancelarReserva();
 
     Aviao *criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario);
     Passageiro *criarPassageiro(std::string nome, int idade, bool premium);
@@ -29,6 +33,7 @@ class Crud {
 
     void cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento);
     void cancelaReservas(int idVoo);
+    void deletarPassageiro(int idPassageiro);
     void cancelaVoo(int idVoo);
 
     int getNewAvioesId();

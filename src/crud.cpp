@@ -30,12 +30,18 @@ int Crud::getNewAvioesId() {
     return newId;
 }
 
-Aviao *Crud::lerDadosCriarVoo() {
+void Crud::lerDadosCriarVoo() {
     int nFileiras, nColunas;
     std::string origem, destino, data, horario;
     float tempoVoo;
 
     std::cout << "Informe os dados do Voo: " << std::endl;
+    std::cout << "Quantidade de Fileiras: ";
+    std::cin >> nFileiras;
+
+    std::cout << "Quantidade de Colunas: ";
+    std::cin >> nColunas;
+
     std::cout << "Origem: ";
     std::cin >> origem;
 
@@ -51,13 +57,23 @@ Aviao *Crud::lerDadosCriarVoo() {
     std::cout << "Horario: ";
     std::cin >> horario;
 
-    return criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario);
+    criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario);
+}
+
+void Crud::lerCancelarVoo() {
+    int idVoo;
+
+    std::cout << "Informe o ID do Voo: ";
+    std::cin >> idVoo;
+
+    this->cancelaVoo(idVoo);
 }
 
 Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario) {
     int newId = this->getNewAvioesId();
 
     Aviao *aviao = new Aviao(origem, destino, tempoVoo, data, horario, nFileiras, nColunas, this->getNewAvioesId());
+
     avioes.push_back(aviao);
     return aviao;
 }
@@ -80,7 +96,7 @@ int Crud::getNewPassageirosId() {
 
     return newId;
 }
-Passageiro *Crud::lerDadosCriarPassageiro() {
+void Crud::lerDadosCriarPassageiro() {
     std::string nome;
     int idade;
     bool premium;
@@ -96,7 +112,16 @@ Passageiro *Crud::lerDadosCriarPassageiro() {
     std::cout << "Premium: ";
     std::cin >> premium;
 
-    return criarPassageiro(nome, idade, premium);
+    criarPassageiro(nome, idade, premium);
+}
+
+void Crud::lerDeletarPassageiro() {
+    int idPassageiro;
+
+    std::cout << "Informe o ID do Passageiro: ";
+    std::cin >> idPassageiro;
+
+    this->deletarPassageiro(idPassageiro);
 }
 Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium) {
     Passageiro *passageiro = new Passageiro(nome, idade, premium, this->getNewPassageirosId());
@@ -104,6 +129,28 @@ Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium) {
     return passageiro;
 }
 
+void Crud::lerCancelarReserva() {
+    int idPassageiro;
+    int idVoo;
+    int fileiraAssento;
+    int colunaAssento;
+
+    std::cout << "Informe os dados da Reserva: " << std::endl;
+    
+    std::cout << "ID Passageiro: ";
+    std::cin >> idPassageiro;
+
+    std::cout << "ID Voo: ";
+    std::cin >> idVoo;
+
+    std::cout << "Fileira: ";
+    std::cin >> fileiraAssento;
+
+    std::cout << "Coluna: ";
+    std::cin >> colunaAssento;
+
+    this->cancelaReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
+}
 int Crud::getNewReservasId() {
     int newId = 0, i;
     bool existe = true;
@@ -122,7 +169,7 @@ int Crud::getNewReservasId() {
 
     return newId;
 }
-Reserva *Crud::lerDadosCriarReserva() {
+void Crud::lerDadosCriarReserva() {
     int idPassageiro;
     int idVoo;
     int fileiraAssento;
@@ -142,7 +189,7 @@ Reserva *Crud::lerDadosCriarReserva() {
     std::cout << "Coluna: ";
     std::cin >> colunaAssento;
 
-    return criarReserva(passageiros[idPassageiro], avioes[idVoo], fileiraAssento, colunaAssento);
+    criarReserva(passageiros[idPassageiro], avioes[idVoo], fileiraAssento, colunaAssento);
 }
 Reserva *Crud::criarReserva(Passageiro *passageiro, Aviao *aviao, int fileira, int coluna) {
     Reserva *reserva = new Reserva(passageiro->getId(), aviao->getId(), fileira, coluna, this->getNewReservasId());
@@ -235,6 +282,24 @@ void Crud::cancelaReservas(int idVoo) {
                 }
             }
         }
+    }
+}
+
+void Crud::deletarPassageiro(int idPassageiro) {
+    int i, size = passageiros.size();
+    int indexPassageiro;
+
+    for (i = 0; i < size; i++) {
+        if (passageiros[i]->getId() == idPassageiro) {
+            indexPassageiro = i;
+            break;
+        }
+    }
+
+    if (passageiros[indexPassageiro]->getNumReservas() > 0) {
+        std::cout << "Passageiro não pode ser deletado, pois possui reservas" << std::endl;
+    } else {
+        passageiros.erase(passageiros.begin() + indexPassageiro);
     }
 }
 
