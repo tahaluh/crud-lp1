@@ -75,10 +75,11 @@ void exibeMenuPassagem() {
     cout << endl
          << "------------------------" << endl;
     cout << "1 - Comprar Passagem" << endl;
-    cout << "2 - Listar Assentos Disponiveis" << endl;
-    cout << "3 - Alterar Assento" << endl;
-    cout << "4 - Cancelar Pasasgem" << endl;
-    cout << "5 - Voltar" << endl;
+    cout << "2 - Listar Reservas" << endl;
+    cout << "3 - Listar Assentos Disponiveis" << endl;
+    cout << "4 - Alterar Assento" << endl;
+    cout << "5 - Cancelar Pasasgem" << endl;
+    cout << "6 - Voltar" << endl;
     cout << "------------------------" << endl;
 };
 void menuPassagem(Crud *crud) {
@@ -92,14 +93,17 @@ void menuPassagem(Crud *crud) {
             crud->lerDadosCriarReserva();
             cout << "Comprando Passagem..." << endl;
         } else if (opcao == 2) {
-            cout << "Listando Assentos Disponiveis..." << endl;
+            cout << "Listando Reservas..." << endl;
             crud->listarReservas();
         } else if (opcao == 3) {
-            cout << "Alterando Assento..." << endl;
+            cout << "Listando Assentos Disponiveis..." << endl;
+            crud->lerListarAssentosDisponiveis();
         } else if (opcao == 4) {
+            cout << "Alterando Assento..." << endl;
+        } else if (opcao == 5) {
             crud->lerCancelarReserva();
             cout << "Cancelando Passagem..." << endl;
-        } else if (opcao == 5) {
+        } else if (opcao == 6) {
             break;
         }
     }

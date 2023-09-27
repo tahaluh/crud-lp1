@@ -18,6 +18,8 @@ class Aviao {
 
     int getNumAssentos();
 
+    void listarAssentosDisponiveis();
+
     Assento *getAssento(int fileira, int coluna);
 
   private:

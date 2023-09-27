@@ -1,6 +1,7 @@
 #include "aviao.h"
 #include "assentoComum.h"
 #include "assentoPremium.h"
+#include <iostream>
 
 Aviao::Aviao(std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario, int nFileiras, int nColunas, int id) : nFileiras(nFileiras), nColunas(nColunas), origem(origem), destino(destino), tempoVoo(tempoVoo), data(data), horario(horario), id(id) {
     std::vector<Assento *> tempAssentos; // inicia todos os assentos como vazios
@@ -39,4 +40,18 @@ int Aviao::getNumAssentos() {
 
 Assento *Aviao::getAssento(int fileira, int coluna) {
     return this->matrixAssentos[fileira][coluna];
+}
+
+void Aviao::listarAssentosDisponiveis() {
+    for (int i = 0; i < this->nFileiras; i++) {
+        for (int j = 0; j < this->nColunas; j++) {
+            if (this->matrixAssentos[i][j]->isOcupado()) {
+                std::cout << " X ";
+            } else {
+                std::cout << " O ";
+            }
+        }
+
+        std::cout << std::endl;
+    }
 }

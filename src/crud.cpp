@@ -5,31 +5,29 @@
 Crud::Crud() {
 }
 
+// Arquivos
 void Crud::salvaArquivos() {
 }
-
 void Crud::carregaArquivos() {
 }
 
-int Crud::getNewAvioesId() {
-    int newId = 0, i;
-    bool existe = true;
+// Ler
+void Crud::lerCancelarVoo() {
+    int idVoo;
 
-    while (existe) {
-        newId++;
-        existe = false;
+    std::cout << "Informe o ID do Voo: ";
+    std::cin >> idVoo;
 
-        for (int i = 0; i < avioes.size(); i++) {
-            if (avioes[i]->getId() == newId) {
-                existe = true;
-                break;
-            }
-        }
-    }
-
-    return newId;
+    this->cancelaVoo(idVoo);
 }
+void Crud::lerListarAssentosDisponiveis() {
+    int aviaoId;
 
+    std::cout << "Informe o ID do Aviao: ";
+    std::cin >> aviaoId;
+
+    this->getAviao(aviaoId)->listarAssentosDisponiveis();
+}
 void Crud::lerDadosCriarVoo() {
     int nFileiras, nColunas;
     std::string origem, destino, data, horario;
@@ -59,43 +57,6 @@ void Crud::lerDadosCriarVoo() {
 
     criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario);
 }
-
-void Crud::lerCancelarVoo() {
-    int idVoo;
-
-    std::cout << "Informe o ID do Voo: ";
-    std::cin >> idVoo;
-
-    this->cancelaVoo(idVoo);
-}
-
-Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario) {
-    int newId = this->getNewAvioesId();
-
-    Aviao *aviao = new Aviao(origem, destino, tempoVoo, data, horario, nFileiras, nColunas, this->getNewAvioesId());
-
-    avioes.push_back(aviao);
-    return aviao;
-}
-
-int Crud::getNewPassageirosId() {
-    int newId = 0, i;
-    bool existe = true;
-
-    while (existe) {
-        newId++;
-        existe = false;
-
-        for (int i = 0; i < passageiros.size(); i++) {
-            if (passageiros[i]->getId() == newId) {
-                existe = true;
-                break;
-            }
-        }
-    }
-
-    return newId;
-}
 void Crud::lerDadosCriarPassageiro() {
     std::string nome;
     int idade;
@@ -112,9 +73,8 @@ void Crud::lerDadosCriarPassageiro() {
     std::cout << "Premium: ";
     std::cin >> premium;
 
-    criarPassageiro(nome, idade, premium==1);
+    criarPassageiro(nome, idade, premium == 1);
 }
-
 void Crud::lerDeletarPassageiro() {
     int idPassageiro;
 
@@ -123,12 +83,6 @@ void Crud::lerDeletarPassageiro() {
 
     this->deletarPassageiro(idPassageiro);
 }
-Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium) {
-    Passageiro *passageiro = new Passageiro(nome, idade, premium, this->getNewPassageirosId());
-    passageiros.push_back(passageiro);
-    return passageiro;
-}
-
 void Crud::lerCancelarReserva() {
     int idPassageiro;
     int idVoo;
@@ -151,24 +105,6 @@ void Crud::lerCancelarReserva() {
 
     this->cancelaReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
 }
-int Crud::getNewReservasId() {
-    int newId = 0, i;
-    bool existe = true;
-
-    while (existe) {
-        newId++;
-        existe = false;
-
-        for (int i = 0; i < reservas.size(); i++) {
-            if (reservas[i]->getId() == newId) {
-                existe = true;
-                break;
-            }
-        }
-    }
-
-    return newId;
-}
 void Crud::lerDadosCriarReserva() {
     int idPassageiro;
     int idVoo;
@@ -189,14 +125,75 @@ void Crud::lerDadosCriarReserva() {
     std::cout << "Coluna: ";
     std::cin >> colunaAssento;
 
-    criarReserva(passageiros[idPassageiro], avioes[idVoo], fileiraAssento, colunaAssento);
+    criarReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
 }
-Reserva *Crud::criarReserva(Passageiro *passageiro, Aviao *aviao, int fileira, int coluna) {
-    Reserva *reserva = new Reserva(passageiro->getId(), aviao->getId(), fileira, coluna, this->getNewReservasId());
+
+// Criar
+Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium) {
+    Passageiro *passageiro = new Passageiro(nome, idade, premium, this->getNewPassageirosId());
+    passageiros.push_back(passageiro);
+    return passageiro;
+}
+Aviao *Crud::criarVoo(int nFileiras, int nColunas, std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario) {
+    int newId = this->getNewAvioesId();
+
+    Aviao *aviao = new Aviao(origem, destino, tempoVoo, data, horario, nFileiras, nColunas, this->getNewAvioesId());
+
+    avioes.push_back(aviao);
+    return aviao;
+}
+Reserva *Crud::criarReserva(int passageiroId, int aviaoId, int fileira, int coluna) {
+    int aviaoIndex, passageiroIndex;
+    bool existe = false;
+
+    for (int i = 0; i < avioes.size(); i++) {
+        if (avioes[i]->getId() == aviaoId) {
+            aviaoIndex = i;
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Aviao nao encontrado" << std::endl;
+        return nullptr;
+    }
+
+    existe = false;
+
+    for (int i = 0; i < passageiros.size(); i++) {
+        if (passageiros[i]->getId() == passageiroId) {
+            passageiroIndex = i;
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Passageiro nao encontrado" << std::endl;
+        return nullptr;
+    }
+
+    Assento *assento = avioes[aviaoIndex]->getAssento(fileira, coluna);
+
+    if (assento->isOcupado()) {
+        std::cout << "Assento ocupado" << std::endl;
+        return nullptr;
+    }
+
+    if (!assento->podeReservar(this->passageiros[passageiroIndex])) {
+        std::cout << "Assento indisponivel para esse passageiro" << std::endl;
+        return nullptr;
+    };
+
+    Reserva *reserva = new Reserva(passageiroId, aviaoId, fileira, coluna, this->getNewReservasId());
     reservas.push_back(reserva);
+
+    assento->setReserva(reserva);
     return reserva;
 }
 
+// Listar
 void Crud::listarVoos() {
     int i, size = avioes.size();
 
@@ -204,7 +201,6 @@ void Crud::listarVoos() {
         std::cout << avioes[i]->getDados() << std::endl;
     }
 }
-
 void Crud::listarReservas() {
     int i, size = reservas.size();
 
@@ -212,7 +208,6 @@ void Crud::listarReservas() {
         std::cout << reservas[i]->getDados() << std::endl;
     }
 }
-
 void Crud::listarPassageiros() {
     int i, size = passageiros.size();
 
@@ -221,6 +216,98 @@ void Crud::listarPassageiros() {
     }
 }
 
+// Get
+Passageiro *Crud::getPassageiro(int id) {
+    int i, size = passageiros.size();
+
+    for (i = 0; i < size; i++) {
+        if (passageiros[i]->getId() == id) {
+            return passageiros[i];
+        }
+    }
+
+    return nullptr;
+}
+Aviao *Crud::getAviao(int id) {
+    int i, size = avioes.size();
+
+    for (i = 0; i < size; i++) {
+        if (avioes[i]->getId() == id) {
+            return avioes[i];
+        }
+    }
+
+    return nullptr;
+}
+Reserva *Crud::getReserva(int id) {
+    int i, size = reservas.size();
+
+    for (i = 0; i < size; i++) {
+        if (reservas[i]->getId() == id) {
+            return reservas[i];
+        }
+    }
+
+    return nullptr;
+}
+
+// NewId
+int Crud::getNewPassageirosId() {
+    int newId = 0, i;
+    bool existe = true;
+
+    while (existe) {
+        newId++;
+        existe = false;
+
+        for (int i = 0; i < passageiros.size(); i++) {
+            if (passageiros[i]->getId() == newId) {
+                existe = true;
+                break;
+            }
+        }
+    }
+
+    return newId;
+}
+int Crud::getNewAvioesId() {
+    int newId = 0, i;
+    bool existe = true;
+
+    while (existe) {
+        newId++;
+        existe = false;
+
+        for (int i = 0; i < avioes.size(); i++) {
+            if (avioes[i]->getId() == newId) {
+                existe = true;
+                break;
+            }
+        }
+    }
+
+    return newId;
+}
+int Crud::getNewReservasId() {
+    int newId = 0, i;
+    bool existe = true;
+
+    while (existe) {
+        newId++;
+        existe = false;
+
+        for (int i = 0; i < reservas.size(); i++) {
+            if (reservas[i]->getId() == newId) {
+                existe = true;
+                break;
+            }
+        }
+    }
+
+    return newId;
+}
+
+// Deletar
 void Crud::cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento) {
     int i, size = reservas.size();
     int indexPassageiro;
@@ -251,7 +338,6 @@ void Crud::cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int c
         std::cout << "Reserva não encontrada" << std::endl;
     }
 }
-
 void Crud::cancelaReservas(int idVoo) {
     int i, j, k;
     int vooIndex, indexPassageiro;
@@ -284,7 +370,6 @@ void Crud::cancelaReservas(int idVoo) {
         }
     }
 }
-
 void Crud::deletarPassageiro(int idPassageiro) {
     int i, size = passageiros.size();
     int indexPassageiro;
@@ -302,7 +387,6 @@ void Crud::deletarPassageiro(int idPassageiro) {
         passageiros.erase(passageiros.begin() + indexPassageiro);
     }
 }
-
 void Crud::cancelaVoo(int idVoo) {
     int i, size = avioes.size();
     int vooIndex;
