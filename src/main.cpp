@@ -5,6 +5,91 @@
 
 using namespace std;
 
+void exibeMenuEditarVoo() {
+    cout << endl
+         << "------------------------" << endl;
+    cout << "1 - Editar Origem" << endl;
+    cout << "2 - Editar Destino" << endl;
+    cout << "3 - Editar Data" << endl;
+    cout << "4 - Editar Horario Voo" << endl;
+    cout << "5 - Voltar" << endl;
+    cout << "------------------------" << endl;
+}
+void menuEditarVoo(Crud *crud) {
+    while (true) {
+        exibeMenuEditarVoo();
+
+        int opcao;
+        cin >> opcao;
+
+        if (opcao == 1) {
+            crud->lerEditarOrigemVoo();
+        } else if (opcao == 2) {
+            crud->lerEditarDestinoVoo();
+        } else if (opcao == 3) {
+            crud->lerEditarDataVoo();
+        } else if (opcao == 4) {
+            crud->lerEditarHorarioVoo();
+        } else if (opcao == 5) {
+            break;
+        } else {
+            cout << "Opcao Invalida" << endl;
+        }
+    }
+}
+void exibeMenuEditarPassageiro() {
+    cout << endl
+         << "------------------------" << endl;
+    cout << "1 - Editar Nome" << endl;
+    cout << "2 - Editar Idade" << endl;
+    cout << "3 - Editar Premium" << endl;
+    cout << "4 - Voltar" << endl;
+    cout << "------------------------" << endl;
+}
+void menuEditarPassageiro(Crud *crud) {
+    while (true) {
+        exibeMenuEditarPassageiro();
+
+        int opcao;
+        cin >> opcao;
+
+        if (opcao == 1) {
+            crud->lerEditarNomePassageiro();
+        } else if (opcao == 2) {
+            crud->lerEditarIdadePassageiro();
+        } else if (opcao == 3) {
+            crud->lerEditarPremiumPassageiro();
+        } else if (opcao == 4) {
+            break;
+        } else {
+            cout << "Opcao Invalida" << endl;
+        }
+    }
+}
+void exibeMenuEditarAssento() {
+    cout << endl
+         << "------------------------" << endl;
+    cout << "1 - Editar Fileira" << endl;
+    cout << "2 - Editar Coluna" << endl;
+    cout << "3 - Voltar" << endl;
+    cout << "------------------------" << endl;
+}
+void menuEditarAssento(Crud *crud) {
+    while (true) {
+        exibeMenuEditarAssento();
+
+        int opcao;
+        cin >> opcao;
+
+        if (opcao == 1) {
+            crud->lerEditarPosicaoAssento();
+        } else if (opcao == 2) {
+            break;
+        } else {
+            cout << "Opcao Invalida" << endl;
+        }
+    }
+}
 void exibeMenuVoo() {
     cout << endl
          << "------------------------" << endl;
@@ -29,12 +114,15 @@ void menuVoo(Crud *crud) {
             cout << "Listando Voos..." << endl;
             crud->listarVoos();
         } else if (opcao == 3) {
+            menuEditarVoo(crud);
             cout << "Alterando Voo..." << endl;
         } else if (opcao == 4) {
             crud->lerCancelarVoo();
             cout << "Cancelando Voo..." << endl;
         } else if (opcao == 5) {
             break;
+        } else {
+            cout << "Opcao Invalida" << endl;
         }
     }
 }
@@ -62,6 +150,7 @@ void menuPassageiro(Crud *crud) {
             cout << "Listando Passageiros..." << endl;
             crud->listarPassageiros();
         } else if (opcao == 3) {
+            menuEditarPassageiro(crud);
             cout << "Alterando Passageiro..." << endl;
         } else if (opcao == 4) {
             crud->lerDeletarPassageiro();
@@ -99,6 +188,7 @@ void menuPassagem(Crud *crud) {
             cout << "Listando Assentos Disponiveis..." << endl;
             crud->lerListarAssentosDisponiveis();
         } else if (opcao == 4) {
+            menuEditarAssento(crud);
             cout << "Alterando Assento..." << endl;
         } else if (opcao == 5) {
             crud->lerCancelarReserva();

@@ -17,6 +17,10 @@ class Passageiro {
     std::string getNome();
     int getIdade();
 
+    void setPremium(bool premium);
+    void setNome(std::string nome);
+    void setIdade(int idade);
+
   private:
     int id;
     std::string nome;

@@ -28,6 +28,12 @@ class Aviao {
     std::string getOrigem();
     std::string getDestino();
 
+    void setHorario(std::string horario);
+    void setTempoVoo(float tempoVoo);
+    void setData(std::string data);
+    void setOrigem(std::string origem);
+    void setDestino(std::string destino);
+
   private:
     int id;
 

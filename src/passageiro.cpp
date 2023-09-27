@@ -20,3 +20,13 @@ std::string Passageiro::getNome() {
 int Passageiro::getIdade() {
     return this->idade;
 }
+
+void Passageiro::setPremium(bool premium) {
+    this->premium = premium;
+}
+void Passageiro::setNome(std::string nome) {
+    this->nome = nome;
+}
+void Passageiro::setIdade(int idade) {
+    this->idade = idade;
+}

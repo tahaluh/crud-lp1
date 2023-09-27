@@ -82,3 +82,19 @@ std::string Aviao::getData() {
 std::string Aviao::getHorario() {
     return this->horario;
 }
+
+void Aviao::setHorario(std::string horario) {
+    this->horario = horario;
+}
+void Aviao::setTempoVoo(float tempoVoo) {
+    this->tempoVoo = tempoVoo;
+}
+void Aviao::setData(std::string data) {
+    this->data = data;
+}
+void Aviao::setOrigem(std::string origem) {
+    this->origem = origem;
+}
+void Aviao::setDestino(std::string destino) {
+    this->destino = destino;
+}

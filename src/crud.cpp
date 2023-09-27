@@ -330,6 +330,205 @@ void Crud::lerCancelarReserva() {
     this->cancelaReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
 }
 
+// Editar
+
+void Crud::lerEditarOrigemVoo() {
+    int id, i, aviaoSize = this->avioes.size();
+    bool existe = false;
+    std::string newOrigem;
+
+    std::cout << "Informe o ID do Voo: ";
+    std::cin >> id;
+
+    std::cout << "Informe a nova Origem: ";
+    std::cin >> newOrigem;
+
+    for (i = 0; i < aviaoSize; i++) {
+        if (avioes[i]->getId() == id) {
+            avioes[i]->setOrigem(newOrigem);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Voo inexistente" << std::endl;
+    }
+}
+void Crud::lerEditarDestinoVoo() {
+    int id, i, aviaoSize = this->avioes.size();
+    bool existe = false;
+    std::string newDestino;
+
+    std::cout << "Informe o ID do Voo: ";
+    std::cin >> id;
+
+    std::cout << "Informe o novo Destino: ";
+    std::cin >> newDestino;
+
+    for (i = 0; i < aviaoSize; i++) {
+        if (avioes[i]->getId() == id) {
+            avioes[i]->setDestino(newDestino);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Voo inexistente" << std::endl;
+    }
+}
+void Crud::lerEditarDataVoo() {
+    int id, i, aviaoSize = this->avioes.size();
+    bool existe = false;
+    std::string newData;
+
+    std::cout << "Informe o ID do Voo: ";
+    std::cin >> id;
+
+    std::cout << "Informe a nova Data: ";
+    std::cin >> newData;
+
+    for (i = 0; i < aviaoSize; i++) {
+        if (avioes[i]->getId() == id) {
+            avioes[i]->setData(newData);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Voo inexistente" << std::endl;
+    }
+}
+void Crud::lerEditarHorarioVoo() {
+    int id, i, aviaoSize = this->avioes.size();
+    bool existe = false;
+    std::string newHorario;
+
+    std::cout << "Informe o ID do Voo: ";
+    std::cin >> id;
+
+    std::cout << "Informe o novo Horario: ";
+    std::cin >> newHorario;
+
+    for (i = 0; i < aviaoSize; i++) {
+        if (avioes[i]->getId() == id) {
+            avioes[i]->setHorario(newHorario);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Voo inexistente" << std::endl;
+    }
+}
+
+void Crud::lerEditarNomePassageiro() {
+    int id, i, passageiroSize = this->passageiros.size();
+    bool existe = false;
+    std::string newNome;
+
+    std::cout << "Informe o ID do Passageiro: ";
+    std::cin >> id;
+
+    std::cout << "Informe o novo Nome: ";
+    std::cin >> newNome;
+
+    for (i = 0; i < passageiroSize; i++) {
+        if (passageiros[i]->getId() == id) {
+            passageiros[i]->setNome(newNome);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Passageiro inexistente" << std::endl;
+    }
+}
+void Crud::lerEditarIdadePassageiro() {
+    int id, i, passageiroSize = this->passageiros.size();
+    bool existe = false;
+    int newIdade;
+
+    std::cout << "Informe o ID do Passageiro: ";
+    std::cin >> id;
+
+    std::cout << "Informe a nova idade: ";
+    std::cin >> newIdade;
+
+    for (i = 0; i < passageiroSize; i++) {
+        if (passageiros[i]->getId() == id) {
+            passageiros[i]->setIdade(newIdade);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Passageiro inexistente" << std::endl;
+    }
+}
+void Crud::lerEditarPremiumPassageiro() {
+    int id, i, passageiroSize = this->passageiros.size();
+    bool existe = false;
+    bool newPremium;
+
+    std::cout << "Informe o ID do Passageiro: ";
+    std::cin >> id;
+
+    std::cout << "Informe o novo Status Premium: ";
+    std::cin >> newPremium;
+
+    for (i = 0; i < passageiroSize; i++) {
+        if (passageiros[i]->getId() == id) {
+            passageiros[i]->setPremium(newPremium);
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Passageiro inexistente" << std::endl;
+    }
+}
+
+void Crud::lerEditarPosicaoAssento() {
+    int id, i, j, reservasSize = this->reservas.size();
+    bool existe = false, disponivel = false;
+    int newColuna, newFileira;
+
+    std::cout << "Informe o ID da Reserva: ";
+    std::cin >> id;
+
+    std::cout << "Informe a nova Fileira: ";
+    std::cin >> newFileira;
+
+    std::cout << "Informe a nova Coluna: ";
+    std::cin >> newColuna;
+
+    for (i = 0; i < reservasSize; i++) {
+        if (reservas[i]->getId() == id) {
+            existe = true;
+            if (this->criarReserva(reservas[i]->getIdPassageiro(), reservas[i]->getIdVoo(), newFileira, newColuna, id) != nullptr) {
+                disponivel = true;
+                this->cancelaReserva(reservas[i]->getIdPassageiro(), reservas[i]->getIdVoo(), reservas[i]->getFileira(), reservas[i]->getColuna());
+            }
+            break;
+        }
+    }
+
+    if (!existe) {
+        std::cout << "Reserva inexistente" << std::endl;
+    }
+
+    if (!disponivel) {
+        std::cout << "Assento indisponivel" << std::endl;
+    }
+}
+
 // Criar
 Passageiro *Crud::criarPassageiro(std::string nome, int idade, bool premium, int id) {
     int newId = id ? id : this->getNewPassageirosId();
