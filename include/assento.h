@@ -15,6 +15,11 @@ class Assento {
 
     virtual bool podeReservar(Passageiro *passageiro) = 0;
 
+    int getId();
+    int getFileira();
+    int getColuna();
+    int getReserva();
+
   protected:
     int idVoo;
 

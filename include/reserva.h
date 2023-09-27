@@ -11,7 +11,6 @@ class Reserva {
     std::string getDados();
 
     int getId();
-
     int getIdPassageiro();
     int getIdVoo();
     int getFileira();

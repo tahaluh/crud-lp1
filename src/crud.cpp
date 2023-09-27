@@ -1,5 +1,6 @@
 #include "crud.h"
 
+#include <fstream>
 #include <iostream>
 
 Crud::Crud() {
@@ -7,8 +8,43 @@ Crud::Crud() {
 
 // Arquivos
 void Crud::salvaArquivos() {
+    int nLinha;
+
+    std::fstream fp;
+
+    fp.open("../db/aviao.txt");
+
+    if (!fp.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo";
+        return;
+    }
+
+    std::string salvar;
+
+    std::cout << salvar << std::endl;
+
+    fp.close();
 }
+
 void Crud::carregaArquivos() {
+    std::fstream fp;
+
+    fp.open("../db/aviao.txt");
+
+    if (!fp.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo";
+        return;
+    }
+
+    while (fp.eof()) {
+        if (fp.eof()) {
+            break;
+        }
+
+        this->lerDadosCriarVoo();
+    }
+
+    fp.close();
 }
 
 // Ler
@@ -28,49 +64,68 @@ void Crud::lerListarAssentosDisponiveis() {
 
     this->getAviao(aviaoId)->listarAssentosDisponiveis();
 }
-void Crud::lerDadosCriarVoo() {
+void Crud::lerDadosCriarVoo(bool usuario = false) {
     int nFileiras, nColunas;
     std::string origem, destino, data, horario;
     float tempoVoo;
 
-    std::cout << "Informe os dados do Voo: " << std::endl;
-    std::cout << "Quantidade de Fileiras: ";
+    if (usuario) {
+        std::cout << "Informe os dados do Voo: " << std::endl;
+        std::cout << "Quantidade de Fileiras: ";
+    }
     std::cin >> nFileiras;
 
-    std::cout << "Quantidade de Colunas: ";
+    if (usuario) {
+        std::cout << "Quantidade de Colunas: ";
+    }
     std::cin >> nColunas;
 
-    std::cout << "Origem: ";
+    if (usuario) {
+        std::cout << "Origem: ";
+    }
     std::cin >> origem;
 
-    std::cout << "Destino: ";
+    if (usuario) {
+        std::cout << "Destino: ";
+    }
     std::cin >> destino;
 
-    std::cout << "Tempo de Voo: ";
+    if (usuario) {
+        std::cout << "Tempo de Voo: ";
+    }
     std::cin >> tempoVoo;
 
-    std::cout << "Data: ";
+    if (usuario) {
+        std::cout << "Data: ";
+    }
     std::cin >> data;
 
-    std::cout << "Horario: ";
+    if (usuario) {
+        std::cout << "Horario: ";
+    }
     std::cin >> horario;
 
     criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario);
 }
-void Crud::lerDadosCriarPassageiro() {
+void Crud::lerDadosCriarPassageiro(bool usuario = false) {
     std::string nome;
     int idade;
     int premium;
 
-    std::cout << "Informe os dados do Passageiro: " << std::endl;
-
-    std::cout << "Nome: ";
+    if (usuario) {
+        std::cout << "Informe os dados do Passageiro: " << std::endl;
+        std::cout << "Nome: ";
+    }
     std::cin >> nome;
 
-    std::cout << "Idade: ";
+    if (usuario) {
+        std::cout << "Idade: ";
+    }
     std::cin >> idade;
 
-    std::cout << "Premium: ";
+    if (usuario) {
+        std::cout << "Premium: ";
+    }
     std::cin >> premium;
 
     criarPassageiro(nome, idade, premium == 1);
@@ -105,24 +160,31 @@ void Crud::lerCancelarReserva() {
 
     this->cancelaReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
 }
-void Crud::lerDadosCriarReserva() {
+void Crud::lerDadosCriarReserva(bool usuario = false) {
     int idPassageiro;
     int idVoo;
     int fileiraAssento;
     int colunaAssento;
 
-    std::cout << "Informe os dados da Reserva: " << std::endl;
-
-    std::cout << "ID Passageiro: ";
+    if (usuario) {
+        std::cout << "Informe os dados da Reserva: " << std::endl;
+        std::cout << "ID Passageiro: ";
+    }
     std::cin >> idPassageiro;
 
-    std::cout << "ID Voo: ";
+    if (usuario) {
+        std::cout << "ID Voo: ";
+    }
     std::cin >> idVoo;
 
-    std::cout << "Fileira: ";
+    if (usuario) {
+        std::cout << "Fileira: ";
+    }
     std::cin >> fileiraAssento;
 
-    std::cout << "Coluna: ";
+    if (usuario) {
+        std::cout << "Coluna: ";
+    }
     std::cin >> colunaAssento;
 
     criarReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
