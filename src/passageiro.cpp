@@ -12,3 +12,11 @@ int Passageiro::getId() {
 bool Passageiro::isPremium() {
     return this->premium;
 }
+
+std::string Passageiro::getNome() {
+    return this->nome;
+}
+
+int Passageiro::getIdade() {
+    return this->idade;
+}

@@ -22,6 +22,12 @@ class Aviao {
 
     Assento *getAssento(int fileira, int coluna);
 
+    float getTempoVoo();
+    std::string getData();
+    std::string getHorario();
+    std::string getOrigem();
+    std::string getDestino();
+
   private:
     int id;
 

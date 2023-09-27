@@ -13,8 +13,7 @@ class Passageiro {
     int getId();
 
     bool isPremium();
-
-    int getId();
+    
     std::string getNome();
     int getIdade();
 

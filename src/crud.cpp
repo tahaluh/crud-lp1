@@ -8,20 +8,72 @@ Crud::Crud() {
 
 // Arquivos
 void Crud::salvaArquivos() {
-    int nLinha;
+    int i, size;
 
     std::fstream fp;
 
-    fp.open("../db/aviao.txt");
+    // aviao
+
+    size = this->avioes.size();
+
+    fp.open("../db/avioes.txt");
 
     if (!fp.is_open()) {
         std::cerr << "Erro ao abrir o arquivo";
         return;
     }
 
-    std::string salvar;
+    for (i = 0; i < size; i++) {
+        std::cout << this->avioes[i]->getId() << std::endl;
+        std::cout << this->avioes[i]->getFileiras() << std::endl;
+        std::cout << this->avioes[i]->getColunas() << std::endl;
+        std::cout << this->avioes[i]->getOrigem() << std::endl;
+        std::cout << this->avioes[i]->getDestino() << std::endl;
+        std::cout << this->avioes[i]->getTempoVoo() << std::endl;
+        std::cout << this->avioes[i]->getData() << std::endl;
+        std::cout << this->avioes[i]->getHorario() << std::endl;
+    }
 
-    std::cout << salvar << std::endl;
+    fp.close();
+
+    // passageiro
+
+    size = this->passageiros.size();
+
+    fp.open("../db/passageiros.txt");
+
+    if (!fp.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo";
+        return;
+    }
+
+    for (i = 0; i < size; i++) {
+        std::cout << this->passageiros[i]->getId() << std::endl;
+        std::cout << this->passageiros[i]->getNome() << std::endl;
+        std::cout << this->passageiros[i]->getIdade() << std::endl;
+        std::cout << this->passageiros[i]->isPremium() << std::endl;
+    }
+
+    fp.close();
+
+    // reserva
+
+    size = this->reservas.size();
+
+    fp.open("../db/reservas.txt");
+
+    if (!fp.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo";
+        return;
+    }
+
+    for (i = 0; i < size; i++) {
+        std::cout << this->reservas[i]->getId() << std::endl;
+        std::cout << this->reservas[i]->getIdPassageiro() << std::endl;
+        std::cout << this->reservas[i]->getIdVoo() << std::endl;
+        std::cout << this->reservas[i]->getFileira() << std::endl;
+        std::cout << this->reservas[i]->getColuna() << std::endl;
+    }
 
     fp.close();
 }
@@ -41,7 +93,7 @@ void Crud::carregaArquivos() {
             break;
         }
 
-        this->lerDadosCriarVoo();
+        this->lerDadosCriarVoo(false);
     }
 
     fp.close();
@@ -64,7 +116,7 @@ void Crud::lerListarAssentosDisponiveis() {
 
     this->getAviao(aviaoId)->listarAssentosDisponiveis();
 }
-void Crud::lerDadosCriarVoo(bool usuario = false) {
+void Crud::lerDadosCriarVoo(bool usuario) {
     int nFileiras, nColunas;
     std::string origem, destino, data, horario;
     float tempoVoo;
@@ -107,7 +159,7 @@ void Crud::lerDadosCriarVoo(bool usuario = false) {
 
     criarVoo(nFileiras, nColunas, origem, destino, tempoVoo, data, horario);
 }
-void Crud::lerDadosCriarPassageiro(bool usuario = false) {
+void Crud::lerDadosCriarPassageiro(bool usuario) {
     std::string nome;
     int idade;
     int premium;
@@ -160,7 +212,7 @@ void Crud::lerCancelarReserva() {
 
     this->cancelaReserva(idPassageiro, idVoo, fileiraAssento, colunaAssento);
 }
-void Crud::lerDadosCriarReserva(bool usuario = false) {
+void Crud::lerDadosCriarReserva(bool usuario) {
     int idPassageiro;
     int idVoo;
     int fileiraAssento;

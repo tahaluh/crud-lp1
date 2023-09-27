@@ -19,10 +19,10 @@ class Crud {
     Aviao *getAviao(int id);
     Reserva *getReserva(int id);
 
-    void lerDadosCriarVoo(bool usuario);
-    void lerDadosCriarPassageiro(bool usuario);
-    void lerDadosCriarReserva(bool usuario);
-    
+    void lerDadosCriarVoo(bool usuario = true);
+    void lerDadosCriarPassageiro(bool usuario = true);
+    void lerDadosCriarReserva(bool usuario = true);
+
     void lerListarAssentosDisponiveis();
 
     void lerCancelarVoo();

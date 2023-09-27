@@ -55,3 +55,23 @@ void Aviao::listarAssentosDisponiveis() {
         std::cout << std::endl;
     }
 }
+
+std::string Aviao::getOrigem() {
+    return this->origem;
+}
+
+std::string Aviao::getDestino() {
+    return this->destino;
+}
+
+float Aviao::getTempoVoo() {
+    return this->tempoVoo;
+}
+
+std::string Aviao::getData() {
+    return this->data;
+}
+
+std::string Aviao::getHorario() {
+    return this->horario;
+}
