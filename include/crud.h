@@ -14,6 +14,7 @@ class Crud {
 
     void carregaArquivos();
     void salvaArquivos();
+    void exibirRelatorio();
 
     Passageiro *getPassageiro(int id);
     Aviao *getAviao(int id);

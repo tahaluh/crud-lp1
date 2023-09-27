@@ -114,13 +114,15 @@ void exibeMenuGeral() {
     cout << "1 - Voos" << endl;
     cout << "2 - Passageiros" << endl;
     cout << "3 - Passagens" << endl;
-    cout << "4 - Sair" << endl;
+    cout << "4 - Gerar Relatorio" << endl;
+    cout << "5 - Sair" << endl;
     cout << "------------------------" << endl;
 };
 void menuGeral(Crud *crud) {
+    int opcao;
+
     while (true) {
         exibeMenuGeral();
-        int opcao;
         cin >> opcao;
 
         string senhaMestre = "123";
@@ -141,6 +143,8 @@ void menuGeral(Crud *crud) {
         } else if (opcao == 3) {
             menuPassagem(crud);
         } else if (opcao == 4) {
+            crud->exibirRelatorio();
+        } else if (opcao == 5) {
             break;
         } else {
             cout << "Opcao Invalida" << endl;

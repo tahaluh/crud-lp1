@@ -43,10 +43,13 @@ Assento *Aviao::getAssento(int fileira, int coluna) {
 }
 
 void Aviao::listarAssentosDisponiveis() {
+    int ocupados = 0;
+
     for (int i = 0; i < this->nFileiras; i++) {
         for (int j = 0; j < this->nColunas; j++) {
             if (this->matrixAssentos[i][j]->isOcupado()) {
                 std::cout << " X ";
+                ocupados++;
             } else {
                 std::cout << " O ";
             }
@@ -54,6 +57,10 @@ void Aviao::listarAssentosDisponiveis() {
 
         std::cout << std::endl;
     }
+
+    std::cout << "Total de assentos: " << this->getNumAssentos() << std::endl;
+    std::cout << "Total reservados: " << ocupados << std::endl;
+    std::cout << "Total disponiveis: " << this->getNumAssentos() - ocupados << std::endl;
 }
 
 std::string Aviao::getOrigem() {
