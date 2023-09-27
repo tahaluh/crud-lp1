@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <cstdlib>
 
 #include <crud.h>
 
@@ -21,6 +22,8 @@ void menuEditarVoo(Crud *crud) {
 
         int opcao;
         cin >> opcao;
+
+        system("cls");
 
         if (opcao == 1) {
             crud->lerEditarOrigemVoo();
@@ -52,6 +55,8 @@ void menuEditarPassageiro(Crud *crud) {
 
         int opcao;
         cin >> opcao;
+        
+        system("cls");
 
         if (opcao == 1) {
             crud->lerEditarNomePassageiro();
@@ -80,6 +85,9 @@ void menuEditarAssento(Crud *crud) {
         int opcao;
         cin >> opcao;
 
+        
+        system("cls");
+
         if (opcao == 1) {
             crud->lerEditarPosicaoAssento();
         } else if (opcao == 2) {
@@ -105,6 +113,9 @@ void menuVoo(Crud *crud) {
 
         int opcao;
         cin >> opcao;
+
+        
+        system("cls");
 
         if (opcao == 1) {
             crud->lerDadosCriarVoo();
@@ -142,6 +153,9 @@ void menuPassageiro(Crud *crud) {
         int opcao;
         cin >> opcao;
 
+        
+        system("cls");
+
         if (opcao == 1) {
             crud->lerDadosCriarPassageiro();
             cout << "Cadastrando Passageiro..." << endl;
@@ -176,6 +190,9 @@ void menuPassagem(Crud *crud) {
 
         int opcao;
         cin >> opcao;
+
+        
+        system("cls");
 
         if (opcao == 1) {
             crud->lerDadosCriarReserva();
@@ -213,6 +230,9 @@ void menuGeral(Crud *crud) {
     while (true) {
         exibeMenuGeral();
         cin >> opcao;
+
+        
+        system("cls");
 
         string senhaMestre = "123";
         string senha;
