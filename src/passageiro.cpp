@@ -1,6 +1,6 @@
 #include "passageiro.h"
 
-Passageiro::Passageiro(std::string nome, int idade, bool premium) : nome(nome), idade(idade), premium(premium) {}
+Passageiro::Passageiro(std::string nome, int idade, bool premium, int id) : nome(nome), idade(idade), premium(premium), id(id) {}
 
 void Passageiro::adicionaReserva(Reserva *reserva) {
     reservas.push_back(reserva);

@@ -6,7 +6,7 @@
 
 class Reserva {
   public:
-    Reserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento);
+    Reserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento, int id);
 
     std::string getDados();
 

@@ -1,6 +1,6 @@
 #include "reserva.h"
 
-Reserva::Reserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento) : idPassageiro(idPassageiro), idVoo(idVoo), fileiraAssento(fileiraAssento), colunaAssento(colunaAssento) {
+Reserva::Reserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento, int id) : idPassageiro(idPassageiro), idVoo(idVoo), fileiraAssento(fileiraAssento), colunaAssento(colunaAssento), id(id) {
 }
 
 std::string Reserva::getDados() {
@@ -26,4 +26,3 @@ int Reserva::getFileira() {
 int Reserva::getColuna() {
     return colunaAssento;
 }
-
