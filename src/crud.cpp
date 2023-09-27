@@ -99,7 +99,7 @@ int Crud::getNewPassageirosId() {
 void Crud::lerDadosCriarPassageiro() {
     std::string nome;
     int idade;
-    bool premium;
+    int premium;
 
     std::cout << "Informe os dados do Passageiro: " << std::endl;
 
@@ -112,7 +112,7 @@ void Crud::lerDadosCriarPassageiro() {
     std::cout << "Premium: ";
     std::cin >> premium;
 
-    criarPassageiro(nome, idade, premium);
+    criarPassageiro(nome, idade, premium==1);
 }
 
 void Crud::lerDeletarPassageiro() {
@@ -136,7 +136,7 @@ void Crud::lerCancelarReserva() {
     int colunaAssento;
 
     std::cout << "Informe os dados da Reserva: " << std::endl;
-    
+
     std::cout << "ID Passageiro: ";
     std::cin >> idPassageiro;
 

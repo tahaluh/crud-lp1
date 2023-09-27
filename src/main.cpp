@@ -26,6 +26,7 @@ void menuVoo(Crud *crud) {
             crud->lerDadosCriarVoo();
             cout << "Cadastrando Voo..." << endl;
         } else if (opcao == 2) {
+            cout << "Listando Voos..." << endl;
             crud->listarVoos();
         } else if (opcao == 3) {
             cout << "Alterando Voo..." << endl;
@@ -55,13 +56,15 @@ void menuPassageiro(Crud *crud) {
         cin >> opcao;
 
         if (opcao == 1) {
-            crud->lerDadosCriarReserva();
+            crud->lerDadosCriarPassageiro();
             cout << "Cadastrando Passageiro..." << endl;
         } else if (opcao == 2) {
             cout << "Listando Passageiros..." << endl;
+            crud->listarPassageiros();
         } else if (opcao == 3) {
             cout << "Alterando Passageiro..." << endl;
         } else if (opcao == 4) {
+            crud->lerDeletarPassageiro();
             cout << "Deletando Passageiro..." << endl;
         } else if (opcao == 5) {
             break;
@@ -90,9 +93,11 @@ void menuPassagem(Crud *crud) {
             cout << "Comprando Passagem..." << endl;
         } else if (opcao == 2) {
             cout << "Listando Assentos Disponiveis..." << endl;
+            crud->listarReservas();
         } else if (opcao == 3) {
             cout << "Alterando Assento..." << endl;
         } else if (opcao == 4) {
+            crud->lerCancelarReserva();
             cout << "Cancelando Passagem..." << endl;
         } else if (opcao == 5) {
             break;
@@ -104,8 +109,8 @@ void exibeMenuGeral() {
          << "------------------------" << endl;
     cout << "1 - Voos" << endl;
     cout << "2 - Passageiros" << endl;
-    cout << "2 - Passagens" << endl;
-    cout << "3 - Sair" << endl;
+    cout << "3 - Passagens" << endl;
+    cout << "4 - Sair" << endl;
     cout << "------------------------" << endl;
 };
 void menuGeral(Crud *crud) {

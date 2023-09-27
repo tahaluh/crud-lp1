@@ -2,7 +2,7 @@
 #include "assentoComum.h"
 #include "assentoPremium.h"
 
-Aviao::Aviao(std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario, int nFileiras, int nColunas, int id) : nFileiras(nFileiras), nColunas(nColunas), id(id) {
+Aviao::Aviao(std::string origem, std::string destino, float tempoVoo, std::string data, std::string horario, int nFileiras, int nColunas, int id) : nFileiras(nFileiras), nColunas(nColunas), origem(origem), destino(destino), tempoVoo(tempoVoo), data(data), horario(horario), id(id) {
     std::vector<Assento *> tempAssentos; // inicia todos os assentos como vazios
     for (int i = 0; i < nFileiras; i++) {
         for (int j = 0; j < nColunas; j++) {
@@ -18,7 +18,7 @@ Aviao::Aviao(std::string origem, std::string destino, float tempoVoo, std::strin
 }
 
 std::string Aviao::getDados() {
-    return "Id: " + std::to_string(this->id) + " - Origem: " + this->origem + " - Destino: " + this->destino + " - Tempo de Voo: " + std::to_string(this->tempoVoo) + "horas - Data: " + this->data + " - Horario: " + this->horario;
+    return "Id: " + std::to_string(this->id) + " - Origem: " + this->origem + " - Destino: " + this->destino + " - Fileiras: " + std::to_string(this->nFileiras) + " - Colunas: " + std::to_string(this->nColunas) + " - Tempo de Voo: " + std::to_string(this->tempoVoo) + "horas - Data: " + this->data + " - Horario: " + this->horario;
 }
 
 int Aviao::getId() {
@@ -40,4 +40,3 @@ int Aviao::getNumAssentos() {
 Assento *Aviao::getAssento(int fileira, int coluna) {
     return this->matrixAssentos[fileira][coluna];
 }
-
