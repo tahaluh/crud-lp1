@@ -12,3 +12,7 @@ bool Assento::isOcupado() {
     return ocupado;
 }
 
+void Assento::cancelaReserva() {
+    this->ocupado = false;
+    this->reservaId = 0;
+}

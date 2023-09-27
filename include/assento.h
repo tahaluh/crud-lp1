@@ -10,6 +10,7 @@ class Assento {
     Assento(int fileira, int coluna, int idVoo);
 
     void setReserva(Reserva *reserva);
+    void cancelaReserva();
 
     bool isOcupado();
 

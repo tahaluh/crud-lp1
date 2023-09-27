@@ -423,8 +423,8 @@ int Crud::getNewReservasId() {
 
 // Deletar
 void Crud::cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento) {
-    int i, size = reservas.size();
-    int indexPassageiro;
+    int i, size = reservas.size(), avioesSize = avioes.size();
+    int indexPassageiro, indexVoo;
     bool existe = false;
 
     for (i = 0; i < size; i++) {
@@ -436,10 +436,16 @@ void Crud::cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int c
 
     for (i = 0; i < size; i++) {
         if (reservas[i]->getIdPassageiro() == idPassageiro && reservas[i]->getIdVoo() == idVoo && reservas[i]->getFileira() == fileiraAssento && reservas[i]->getColuna() == colunaAssento) {
-
             reservas.erase(reservas.begin() + i);
 
             existe = true;
+
+            for (i = 0; i < avioesSize; i++) { // cancela a reserva no assento
+                if (avioes[i]->getId() == idVoo) {
+                    avioes[i]->getAssento(fileiraAssento, colunaAssento)->cancelaReserva();
+                    break;
+                }
+            }
 
             break;
         }
