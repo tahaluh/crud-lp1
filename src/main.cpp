@@ -69,9 +69,8 @@ void menuEditarPassageiro(Crud *crud) {
 void exibeMenuEditarAssento() {
     cout << endl
          << "------------------------" << endl;
-    cout << "1 - Editar Fileira" << endl;
-    cout << "2 - Editar Coluna" << endl;
-    cout << "3 - Voltar" << endl;
+    cout << "1 - Editar Posicao" << endl;
+    cout << "2 - Voltar" << endl;
     cout << "------------------------" << endl;
 }
 void menuEditarAssento(Crud *crud) {
