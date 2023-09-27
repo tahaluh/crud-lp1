@@ -37,7 +37,7 @@ class Crud {
     void listarPassageiros();
 
     void cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int colunaAssento);
-    void cancelaReservas(int idVoo);
+    void cancelaReservasVoo(int idVoo);
     void deletarPassageiro(int idPassageiro);
     void cancelaVoo(int idVoo);
 

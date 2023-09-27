@@ -324,7 +324,6 @@ void Crud::cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int c
         if (reservas[i]->getIdPassageiro() == idPassageiro && reservas[i]->getIdVoo() == idVoo && reservas[i]->getFileira() == fileiraAssento && reservas[i]->getColuna() == colunaAssento) {
 
             reservas.erase(reservas.begin() + i);
-            passageiros[indexPassageiro]->removeReserva(idVoo, fileiraAssento, colunaAssento);
 
             existe = true;
 
@@ -338,7 +337,7 @@ void Crud::cancelaReserva(int idPassageiro, int idVoo, int fileiraAssento, int c
         std::cout << "Reserva não encontrada" << std::endl;
     }
 }
-void Crud::cancelaReservas(int idVoo) {
+void Crud::cancelaReservasVoo(int idVoo) {
     int i, j, k;
     int vooIndex, indexPassageiro;
     int avioesSize = avioes.size(), passageirosSize = passageiros.size();
@@ -363,25 +362,37 @@ void Crud::cancelaReservas(int idVoo) {
         for (j = 0; j < fileirasAviao; j++) {           // para cada fileira
             for (k = 0; k < colunasAviao; k++) {        // para cada coluna (assento)
                 for (i = 0; i < passageirosSize; i++) { // para cada passageiro
-                    if (passageiros[i]->removeReserva(idVoo, j, k))
-                        break;
                 }
             }
         }
     }
 }
 void Crud::deletarPassageiro(int idPassageiro) {
-    int i, size = passageiros.size();
+    int i, passageirosSize = passageiros.size(), reservasSize = reservas.size();
     int indexPassageiro;
+    bool existe = false, hasReservas = false;
 
-    for (i = 0; i < size; i++) {
+    for (i = 0; i < passageirosSize; i++) {
         if (passageiros[i]->getId() == idPassageiro) {
             indexPassageiro = i;
+            existe = true;
             break;
         }
     }
 
-    if (passageiros[indexPassageiro]->getNumReservas() > 0) {
+    if (!existe) {
+        std::cout << "Passageiro não encontrado" << std::endl;
+        return;
+    }
+
+    for (i = 0; i < reservasSize; i++) {
+        if (reservas[i]->getIdPassageiro() == idPassageiro) {
+            hasReservas = true;
+            break;
+        }
+    }
+
+    if (hasReservas) {
         std::cout << "Passageiro não pode ser deletado, pois possui reservas" << std::endl;
     } else {
         passageiros.erase(passageiros.begin() + indexPassageiro);
@@ -401,7 +412,7 @@ void Crud::cancelaVoo(int idVoo) {
     }
 
     if (existe) {
-        cancelaReservas(idVoo);
+        cancelaReservasVoo(idVoo);
         avioes.erase(avioes.begin() + vooIndex);
         std::cout << "Voo cancelado com sucesso" << std::endl;
     } else {
